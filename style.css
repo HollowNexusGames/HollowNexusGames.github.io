@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Fotales";
-  src: url("assets/fonts/Fotales-Regular.otf") format("onlythefamily");
+  src: url("assets/fonts/Fotales-Regular.otf") format("opentype");
 }
 
 :root {
