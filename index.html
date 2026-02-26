@@ -10,28 +10,31 @@
   <body>
     <div class="container">
       <header class="hero">
-        <!-- Swap this filename to whichever variant looks best on the green background -->
         <img
           class="hero-logo"
           src="assets/Colored Cupped Logo.png"
           alt="Hollow Nexus"
         />
 
-        <!-- Keep a real H1 for SEO/accessibility even if the logo contains the name -->
         <h1 class="sr-only">Hollow Nexus</h1>
 
         <p class="tagline">Connecting through handcrafted worlds.</p>
 
+        <!-- IMPORTANT: these are pages now, not #anchors -->
         <nav class="nav" aria-label="Primary">
-          <a href="#game">Games</a>
-          <a href="#press/">Press</a>
-          <a href="#contact">About</a>
+          <a href="games/">Games</a>
+          <a href="press/">Press</a>
+          <a href="about/">About</a>
         </nav>
       </header>
 
       <main>
-        <section class="card" id="game">
-          <h2>Haute Garbage</h2>
+        <section class="card">
+          <h2>Featured Game</h2>
+
+          <div class="divider"></div>
+
+          <h3 class="feature-title">Haute Garbage</h3>
           <p>
             Dumpster dive &amp; forage as Tootie the possum to create tasty dishes
             from scrap for the local wildlife!
@@ -43,44 +46,30 @@
             <li>Cooking</li>
             <li>Woodland customers</li>
           </ul>
-        </section>
-
-        <aside class="card">
-          <section id="press">
-            <h2>Press Kit</h2>
-            <p class="muted">
-              Simple on purpose. Add links when you have them.
-            </p>
-
-            <div class="divider"></div>
-
-            <p><strong>Studio :</strong> Hollow Nexus</p>
-            <p><strong>Game :</strong> Haute Garbage</p>
-            <p><strong>Release :</strong> TBD</p>
-
-            <div class="divider"></div>
-
-            <!-- Replace # with real links later -->
-            <p class="muted">
-              Downloads (coming soon):
-              <br />
-              <a class="inline" href="#">Logo pack</a>
-              ·
-              <a class="inline" href="#">Screenshots</a>
-              ·
-              <a class="inline" href="#">Trailer</a>
-            </p>
-          </section>
 
           <div class="divider"></div>
 
-          <section id="contact">
-            <h2>Contact</h2>
-            <p class="muted">Replace this email when you’re ready.</p>
-            <p>
-              <a class="inline" href="mailto:hello@example.com">hello@example.com</a>
-            </p>
-          </section>
+          <p class="muted">
+            <a class="inline" href="games/haute-garbage/">Game page</a>
+            ·
+            <a class="inline" href="press/haute-garbage/">Press kit</a>
+          </p>
+        </section>
+
+        <aside class="card">
+          <h2>Quick Links</h2>
+          <p class="muted">Keep this minimal so Home stays clean.</p>
+
+          <div class="divider"></div>
+
+          <p>
+            <strong>Contact:</strong>
+            <a class="inline" href="mailto:hello@example.com">hello@example.com</a>
+          </p>
+
+          <p class="muted">
+            Replace email when you’re ready.
+          </p>
         </aside>
       </main>
 
