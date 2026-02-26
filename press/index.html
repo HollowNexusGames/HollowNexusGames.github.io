@@ -3,69 +3,65 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Press Kit — Hollow Nexus</title>
+    <title>Press — Hollow Nexus</title>
     <link rel="stylesheet" href="../style.css" />
   </head>
 
   <body>
     <div class="container subpage">
-
-      <!-- Subpage Header -->
       <header class="sub-header">
         <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
-          <img
-            class="sub-logo"
-            src="../assets/Circle Logo 2.png"
-            alt="Hollow Nexus"
-          />
+          <img class="sub-logo" src="../assets/circle-logo-2.png" alt="Hollow Nexus" />
         </a>
 
-        <nav class="sub-nav" aria-label="Subpage Navigation">
+        <nav class="sub-nav" aria-label="Site">
           <a href="../">Home</a>
-          <a href="../games/haute-garbage/">Haute Garbage</a>
+          <a href="../games/">Games</a>
+          <a href="./" aria-current="page">Press</a>
           <a href="../about/">About</a>
         </nav>
       </header>
 
-      <!-- Main Content -->
       <main>
         <section class="card">
-          <h2>Haute Garbage</h2>
-
-          <p><strong>Description:</strong></p>
-          <p>
-            Dumpster dive &amp; forage as Tootie the possum to create tasty
-            dishes from scrap for the local wildlife!
+          <h2>Press</h2>
+          <p class="muted">
+            Studio facts, contact, and downloadable assets. Game-specific press kits live below.
           </p>
 
           <div class="divider"></div>
 
-          <p><strong>Developer :</strong> Hollow Nexus</p>
-          <p><strong>Genre :</strong> Cooking, Cozy, Wholesome, Stylized, Indie </p>
-          <p><strong>Platforms :</strong> Steam</p>
-          <p><strong>Release :</strong> TBD</p>
+          <p><strong>Studio:</strong> Hollow Nexus</p>
+          <p><strong>Tagline:</strong> Connecting through handcrafted worlds.</p>
+          <p>
+            <strong>Contact:</strong>
+            <a class="inline" href="mailto:hello@example.com">hello@example.com</a>
+          </p>
 
           <div class="divider"></div>
 
-          <p><strong>Downloads (coming soon)</strong></p>
-          <ul class="pills">
-            <li>Logo Pack</li>
-            <li>Screenshots</li>
-            <li>Trailer</li>
-          </ul>
+          <p><strong>Game Press Kits</strong></p>
+          <div class="list">
+            <a class="list-item" href="./haute-garbage/">
+              <div class="list-title">Haute Garbage</div>
+              <div class="list-desc">Press kit, factsheet, screenshots, trailer links.</div>
+            </a>
+
+            <!-- Future game press kit template:
+            <a class="list-item" href="./your-game-slug/">
+              <div class="list-title">Your Game Title</div>
+              <div class="list-desc">Press kit, factsheet, screenshots, trailer links.</div>
+            </a>
+            -->
+          </div>
         </section>
       </main>
 
-      <!-- Footer -->
-      <footer>
-        © <span id="year"></span> Hollow Nexus
-      </footer>
-
+      <footer>© <span id="year"></span> Hollow Nexus</footer>
     </div>
 
     <script>
-      document.getElementById("year").textContent =
-        String(new Date().getFullYear());
+      document.getElementById("year").textContent = String(new Date().getFullYear());
     </script>
   </body>
 </html>
