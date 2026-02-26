@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,88 +8,34 @@
   </head>
   <body>
     <div class="container">
+
       <header class="hero">
-        <div class="logo" aria-hidden="true">🌀</div>
-        <div>
-          <h1>Hollow Nexus</h1>
-          <div class="tagline">Indie studio making charming weirdness.</div>
+        <h1>Hollow Nexus</h1>
+        <div class="tagline">
+          Connecting through handcrafted worlds.
         </div>
       </header>
 
-      <nav class="nav" aria-label="Site links">
-        <a class="btn pop" href="#game">🎮 Current Game</a>
-        <a class="btn" href="#press">🧾 Press Kit</a>
-        <a class="btn" href="#contact">✉️ Contact</a>
-        <a class="btn" href="#" title="Add your link later">⭐ Wishlist</a>
-      </nav>
-
-      <main class="grid">
-        <section class="card" id="game">
+      <section class="game-section">
+        <div class="game-card">
           <h2>Haute Garbage</h2>
-          <p class="muted">
-            A cozy dumpster-diving cooking game about a possum turning scraps into gourmet dishes.
+          <p>
+            Dumpster dive & forage as Tootie the possum to
+            create tasty dishes from scrap for the local wildlife!
           </p>
+        </div>
 
-          <ul class="pills">
-            <li>Dumpster dive</li>
-            <li>Forage & catch bugs</li>
-            <li>Discover recipes</li>
-            <li>Sell to local wildlife</li>
-          </ul>
+        <div class="nav">
+          <a href="#">Wishlist</a>
+          <a href="#">Press Kit</a>
+          <a href="#">Contact</a>
+        </div>
+      </section>
 
-          <div class="imggrid" aria-label="Screenshot placeholders">
-            <div class="imgph">Screenshot 1</div>
-            <div class="imgph">Screenshot 2</div>
-            <div class="imgph">Screenshot 3</div>
-          </div>
-
-          <p class="muted">
-            Tip: later we’ll add real screenshots by dropping files into an <code>assets</code> folder.
-          </p>
-        </section>
-
-        <aside class="card">
-          <h2>Studio vibes</h2>
-          <p class="muted">Small site. Big personality. Minimal maintenance.</p>
-
-          <div class="stickers" aria-label="Sticker highlights">
-            <span class="sticker s1">✨ cozy chaos</span>
-            <span class="sticker s2">🗑️ garbage gourmet</span>
-            <span class="sticker s3">🦝 critter customers</span>
-          </div>
-
-          <section class="card" id="press" style="margin-top:14px;">
-            <h2>Press Kit</h2>
-            <p class="muted">Keep it simple: facts + downloads.</p>
-            <p>
-              <strong>Title:</strong> Haute Garbage<br />
-              <strong>Genre:</strong> Cozy cooking / foraging<br />
-              <strong>Release:</strong> TBD
-            </p>
-            <p class="muted">
-              We’ll add real download links once you have a logo pack and screenshots.
-            </p>
-          </section>
-
-          <section class="card" id="contact" style="margin-top:14px;">
-            <h2>Contact</h2>
-            <p class="muted">
-              Add a real email when you’re ready.
-            </p>
-            <p>
-              <a class="inline" href="mailto:hello@example.com">hello@example.com</a>
-            </p>
-          </section>
-        </aside>
-      </main>
-
-      <footer class="footer">
-        <small>© <span id="year"></span> Hollow Nexus</small>
+      <footer>
+        © 2026 Hollow Nexus
       </footer>
-    </div>
 
-    <script>
-      document.getElementById("year").textContent = String(new Date().getFullYear());
-    </script>
+    </div>
   </body>
 </html>
