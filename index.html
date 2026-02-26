@@ -1,41 +1,96 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hollow Nexus</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <div class="container">
+      <header class="hero">
+        <!-- Swap this filename to whichever variant looks best on the green background -->
+        <img
+          class="hero-logo"
+          src="assets/logo-black.png"
+          alt="Hollow Nexus"
+        />
 
-      <header class="hero-poster">
-        <img class="hero-logo" src="assets/Colored Main Logo.png" alt="Hollow Nexus logo" />
-        <div class="tagline">
-          Connecting through handcrafted worlds.
-        </div>
+        <!-- Keep a real H1 for SEO/accessibility even if the logo contains the name -->
+        <h1 class="sr-only">Hollow Nexus</h1>
+
+        <p class="tagline">Connecting through handcrafted worlds.</p>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#game">Game</a>
+          <a href="#press">Press Kit</a>
+          <a href="#contact">Contact</a>
+        </nav>
       </header>
 
-      <section class="game-section">
-        <div class="game-card">
+      <main>
+        <section class="card" id="game">
           <h2>Haute Garbage</h2>
           <p>
-            Dumpster dive & forage as Tootie the possum to
-            create tasty dishes from scrap for the local wildlife!
+            Dumpster dive &amp; forage as Tootie the possum to create tasty dishes
+            from scrap for the local wildlife!
           </p>
-        </div>
 
-        <div class="nav">
-          <a href="#">Wishlist</a>
-          <a href="#">Press Kit</a>
-          <a href="#">Contact</a>
-        </div>
-      </section>
+          <ul class="pills" aria-label="Game highlights">
+            <li>Dumpster diving</li>
+            <li>Foraging</li>
+            <li>Cooking</li>
+            <li>Woodland customers</li>
+          </ul>
+        </section>
+
+        <aside class="card">
+          <section id="press">
+            <h2>Press Kit</h2>
+            <p class="muted">
+              Simple on purpose. Add links when you have them.
+            </p>
+
+            <div class="divider"></div>
+
+            <p><strong>Studio:</strong> Hollow Nexus</p>
+            <p><strong>Game:</strong> Haute Garbage</p>
+            <p><strong>Release:</strong> TBD</p>
+
+            <div class="divider"></div>
+
+            <!-- Replace # with real links later -->
+            <p class="muted">
+              Downloads (coming soon):
+              <br />
+              <a class="inline" href="#">Logo pack</a>
+              ·
+              <a class="inline" href="#">Screenshots</a>
+              ·
+              <a class="inline" href="#">Trailer</a>
+            </p>
+          </section>
+
+          <div class="divider"></div>
+
+          <section id="contact">
+            <h2>Contact</h2>
+            <p class="muted">Replace this email when you’re ready.</p>
+            <p>
+              <a class="inline" href="mailto:hello@example.com">hello@example.com</a>
+            </p>
+          </section>
+        </aside>
+      </main>
 
       <footer>
-        © 2026 Hollow Nexus
+        © <span id="year"></span> Hollow Nexus
       </footer>
-
     </div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
   </body>
 </html>
