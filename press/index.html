@@ -8,28 +8,34 @@
   </head>
 
   <body>
-    <div class="container">
-      <header class="hero">
-        <img class="hero-logo" src="../assets/Circle Logo 2.png" alt="Hollow Nexus" />
-        
-        <h1 class="sr-only">Hollow Nexus</h1>
-        <p class="tagline">Press Kit</p>
+    <div class="container subpage">
 
-        <nav class="nav">
+      <!-- Subpage Header -->
+      <header class="sub-header">
+        <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
+          <img
+            class="sub-logo"
+            src="../assets/circle-logo-2.png"
+            alt="Hollow Nexus"
+          />
+        </a>
+
+        <nav class="sub-nav" aria-label="Subpage Navigation">
           <a href="../">Home</a>
           <a href="../games/haute-garbage/">Haute Garbage</a>
           <a href="../about/">About</a>
         </nav>
       </header>
 
+      <!-- Main Content -->
       <main>
         <section class="card">
           <h2>Haute Garbage</h2>
 
           <p><strong>Description:</strong></p>
           <p>
-            Dumpster dive &amp; forage as Tootie the possum to create tasty dishes
-            from scrap for the local wildlife!
+            Dumpster dive &amp; forage as Tootie the possum to create tasty
+            dishes from scrap for the local wildlife!
           </p>
 
           <div class="divider"></div>
@@ -50,13 +56,16 @@
         </section>
       </main>
 
+      <!-- Footer -->
       <footer>
         © <span id="year"></span> Hollow Nexus
       </footer>
+
     </div>
 
     <script>
-      document.getElementById("year").textContent = String(new Date().getFullYear());
+      document.getElementById("year").textContent =
+        String(new Date().getFullYear());
     </script>
   </body>
 </html>
