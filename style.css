@@ -44,6 +44,40 @@ body {
     linear-gradient(180deg, var(--sage-0), var(--sage-1));
 }
 
+/* Subpage header */
+
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sub-logo {
+  width: 90px; /* adjust size here */
+  height: auto;
+  display: block;
+}
+
+.sub-nav {
+  display: flex;
+  gap: 14px;
+}
+
+.sub-nav a {
+  text-decoration: none;
+  color: var(--umber);
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(86, 49, 20, 0.22);
+  background: rgba(248, 247, 255, 0.52);
+  font-size: 16px;
+}
+
+.sub-nav a:hover {
+  opacity: 0.85;
+}
+
 /* Subtle paper/grain texture (no external images) */
 body::before {
   content: "";
