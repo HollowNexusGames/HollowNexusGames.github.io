@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Games — Hollow Nexus</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <div class="container subpage">
+      <header class="sub-header">
+        <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
+          <img class="sub-logo" src="../assets/Circle Logo 2.png" alt="Hollow Nexus" />
+        </a>
+
+        <nav class="sub-nav" aria-label="Site">
+          <a href="../">Home</a>
+          <a href="./" aria-current="page">Games</a>
+          <a href="../press/">Press</a>
+          <a href="../about/">About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>Games</h2>
+          <p class="muted">Current and future projects from Hollow Nexus.</p>
+
+          <div class="divider"></div>
+
+          <div class="list">
+            <a class="list-item" href="./haute-garbage/">
+              <div class="list-title">Haute Garbage</div>
+              <div class="list-desc">
+                Dumpster dive &amp; forage as Tootie the possum to create tasty dishes from scrap for the local wildlife!
+              </div>
+            </a>
+
+            <!-- Future game template:
+            <a class="list-item" href="./your-game-slug/">
+              <div class="list-title">Your Game Title</div>
+              <div class="list-desc">One-sentence pitch.</div>
+            </a>
+            -->
+          </div>
+        </section>
+      </main>
+
+      <footer>© <span id="year"></span> Hollow Nexus</footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>
