@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Press Kit — Hollow Nexus</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="hero">
+        <img
+          class="hero-logo"
+          src="../assets/logo-black.png"
+          alt="Hollow Nexus"
+        />
+        <h1 class="sr-only">Hollow Nexus</h1>
+        <p class="tagline">Press Kit</p>
+
+        <nav class="nav">
+          <a href="../">Home</a>
+          <a href="../games/haute-garbage/">Haute Garbage</a>
+          <a href="../about/">About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>Haute Garbage</h2>
+
+          <p><strong>Description:</strong></p>
+          <p>
+            Dumpster dive &amp; forage as Tootie the possum to create tasty dishes
+            from scrap for the local wildlife!
+          </p>
+
+          <div class="divider"></div>
+
+          <p><strong>Developer:</strong> Hollow Nexus</p>
+          <p><strong>Genre:</strong> Cozy cooking / foraging</p>
+          <p><strong>Platforms:</strong> TBD</p>
+          <p><strong>Release:</strong> TBD</p>
+
+          <div class="divider"></div>
+
+          <p><strong>Downloads (coming soon)</strong></p>
+          <ul class="pills">
+            <li>Logo Pack</li>
+            <li>Screenshots</li>
+            <li>Trailer</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> Hollow Nexus
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>
