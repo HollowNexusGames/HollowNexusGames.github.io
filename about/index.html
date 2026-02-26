@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — Hollow Nexus</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <div class="container subpage">
+      <header class="sub-header">
+        <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
+          <img
+            class="sub-logo"
+            src="../assets/Circle Logo 2.png"
+            alt="Hollow Nexus"
+          />
+        </a>
+
+        <nav class="sub-nav" aria-label="Site">
+          <a href="../">Home</a>
+          <a href="../games/">Games</a>
+          <a href="../press/">Press</a>
+          <a href="./" aria-current="page">About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>About</h2>
+          <p class="muted">Connecting through handcrafted worlds.</p>
+
+          <div class="divider"></div>
+
+          <p>
+            Hollow Nexus is an indie studio creating stylized, story-forward games
+            with cozy chaos, crunchy UI, and a soft spot for creatures.
+          </p>
+
+          <p class="muted">
+            This page is intentionally simple—built to grow as more games release.
+          </p>
+
+          <div class="divider"></div>
+
+          <h3 class="about-subtitle">Contact</h3>
+          <p>
+            <a class="inline" href="mailto:hello@example.com">hello@example.com</a>
+          </p>
+          <p class="muted">Replace this email when you’re ready.</p>
+
+          <div class="divider"></div>
+
+          <h3 class="about-subtitle">Links</h3>
+          <p class="muted">
+            Add these when you have them:
+          </p>
+
+          <ul class="pills" aria-label="Social links placeholders">
+            <li>Steam</li>
+            <li>itch.io</li>
+            <li>YouTube</li>
+            <li>Bluesky</li>
+            <li>Discord</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> Hollow Nexus
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>
