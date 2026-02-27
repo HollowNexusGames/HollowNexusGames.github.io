@@ -65,10 +65,16 @@
             <strong>Contact:</strong>
 
             <p>
-             <button class="copy-email" type="button" data-email="contact@hollownexusgames.com">
-             contact@hollownexusgames.com
-             </button>
+              <a
+                href="#"
+                class="inline copy-email"
+                data-email="contact@hollownexusgames.com"
+              >
+                contact@hollownexusgames.com
+              </a>
             </p>
+
+<div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
 
             <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
              Email has been copied to clipboard.
@@ -83,16 +89,7 @@
       </footer>
     </div>
 
-    <script>
-  async function copyTextToClipboard(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
+ <script>
   function showToast(message) {
     const toast = document.getElementById("toast");
     if (!toast) {
@@ -102,32 +99,44 @@
     toast.textContent = message;
     toast.classList.add("show");
 
-    window.setTimeout(() => {
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(() => {
       toast.classList.remove("show");
-    }, 1400);
+    }, 1600);
+  }
+
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
   document.addEventListener("click", async (event) => {
     const target = event.target;
-    if (!(target instanceof HTMLElement)) {
+    if (!(target instanceof Element)) {
       return;
     }
 
-    const btn = target.closest(".copy-email");
-    if (!btn) {
+    const link = target.closest(".copy-email");
+    if (!link) {
       return;
     }
 
-    const email = btn.getAttribute("data-email");
+    event.preventDefault();
+
+    const email = link.getAttribute("data-email");
     if (!email) {
       return;
     }
 
-    const ok = await copyTextToClipboard(email);
+    const ok = await copyToClipboard(email);
     if (ok) {
       showToast("Email has been copied to clipboard.");
     } else {
-      showToast("Couldn’t copy. Please select and copy manually.");
+      showToast("Couldn’t copy. Please copy manually.");
     }
   });
 </script>
