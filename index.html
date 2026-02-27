@@ -63,8 +63,17 @@
 
           <p>
             <strong>Contact:</strong>
-            <a class="inline" href="mailto:contact@hollownexusgames.com">Email us</a>
-          </p>
+
+            <p>
+             <button class="copy-email" type="button" data-email="contact@hollownexusgames.com">
+             contact@hollownexusgames.com
+             </button>
+            </p>
+
+            <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+             Email has been copied to clipboard.
+            </div>
+         </p>
 
         </aside>
       </main>
@@ -73,6 +82,55 @@
         © <span id="year"></span> Hollow Nexus. All rights reserved.
       </footer>
     </div>
+
+    <script>
+  async function copyTextToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    if (!toast) {
+      return;
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    window.setTimeout(() => {
+      toast.classList.remove("show");
+    }, 1400);
+  }
+
+  document.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    const btn = target.closest(".copy-email");
+    if (!btn) {
+      return;
+    }
+
+    const email = btn.getAttribute("data-email");
+    if (!email) {
+      return;
+    }
+
+    const ok = await copyTextToClipboard(email);
+    if (ok) {
+      showToast("Email has been copied to clipboard.");
+    } else {
+      showToast("Couldn’t copy. Please select and copy manually.");
+    }
+  });
+</script>
 
     <script>
       document.getElementById("year").textContent = String(new Date().getFullYear());
