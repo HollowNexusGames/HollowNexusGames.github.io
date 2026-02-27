@@ -61,26 +61,25 @@
 
           <div class="divider"></div>
 
+          <p><strong>Contact:</strong></p>
+
           <p>
-            <strong>Contact:</strong>
+            <a
+              href="#"
+              class="inline copy-email"
+              data-email="contact@hollownexusgames.com"
+            >
+              contact@hollownexusgames.com
+            </a>
+          </p>
 
-            <p>
-              <a
-                href="#"
-                class="inline copy-email"
-                data-email="contact@hollownexusgames.com"
-              >
-                contact@hollownexusgames.com
-              </a>
-            </p>
-
-<div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
-
-            <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
-             Email has been copied to clipboard.
-            </div>
-         </p>
-
+          <!-- Popup toast (hidden by default via your existing CSS) -->
+          <div
+            id="hn-toast"
+            class="hn-toast"
+            aria-live="polite"
+            aria-atomic="true"
+          ></div>
         </aside>
       </main>
 
@@ -89,124 +88,56 @@
       </footer>
     </div>
 
- <script>
-  function showToast(message) {
-    const toast = document.getElementById("toast");
-    if (!toast) {
-      return;
-    }
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    window.clearTimeout(showToast._t);
-    showToast._t = window.setTimeout(() => {
-      toast.classList.remove("show");
-    }, 1600);
-  }
-
-  async function copyToClipboard(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (err) {
-      return false;
-    }
-  }
-
-  document.addEventListener("click", async (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) {
-      return;
-    }
-
-    const link = target.closest(".copy-email");
-    if (!link) {
-      return;
-    }
-
-    event.preventDefault();
-
-    const email = link.getAttribute("data-email");
-    if (!email) {
-      return;
-    }
-
-    const ok = await copyToClipboard(email);
-    if (ok) {
-      showToast("Email has been copied to clipboard.");
-    } else {
-      showToast("Couldn’t copy. Please copy manually.");
-    }
-  });
-</script>
-
     <script>
       document.getElementById("year").textContent = String(new Date().getFullYear());
     </script>
 
-    <a
-  href="#"
-  class="inline copy-email"
-  data-email="contact@hollownexusgames.com"
->
-  contact@hollownexusgames.com
-</a>
+    <script>
+      function hnShowToast(message) {
+        const toast = document.getElementById("hn-toast");
+        if (!toast) {
+          return;
+        }
 
-<div id="hn-toast" class="hn-toast" aria-live="polite" aria-atomic="true"></div>
+        toast.textContent = message;
+        toast.classList.add("hn-show");
 
-<script>
-  function hnShowToast(message) {
-    const toast = document.getElementById("hn-toast");
-    if (!toast) {
-      return;
-    }
+        window.clearTimeout(hnShowToast._t);
+        hnShowToast._t = window.setTimeout(() => {
+          toast.classList.remove("hn-show");
+          toast.textContent = "";
+        }, 1600);
+      }
 
-    toast.textContent = message;
-    toast.classList.add("hn-show");
+      async function hnCopy(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          hnShowToast("Email has been copied to clipboard.");
+        } catch (e) {
+          hnShowToast("Couldn’t copy. Please copy manually.");
+        }
+      }
 
-    window.clearTimeout(hnShowToast._t);
-    hnShowToast._t = window.setTimeout(() => {
-      toast.classList.remove("hn-show");
-      toast.textContent = "";
-    }, 1600);
-  }
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) {
+          return;
+        }
 
-  async function hnCopy(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+        const link = target.closest(".copy-email");
+        if (!link) {
+          return;
+        }
 
-  document.addEventListener("click", async (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) {
-      return;
-    }
+        event.preventDefault();
 
-    const link = target.closest(".copy-email");
-    if (!link) {
-      return;
-    }
+        const email = link.getAttribute("data-email");
+        if (!email) {
+          return;
+        }
 
-    event.preventDefault();
-
-    const email = link.getAttribute("data-email");
-    if (!email) {
-      return;
-    }
-
-    const ok = await hnCopy(email);
-    if (ok) {
-      hnShowToast("Email has been copied to clipboard.");
-    } else {
-      hnShowToast("Couldn’t copy. Please copy manually.");
-    }
-  });
-</script>
-
+        hnCopy(email);
+      });
+    </script>
   </body>
 </html>
