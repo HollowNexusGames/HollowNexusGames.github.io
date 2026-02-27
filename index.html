@@ -144,5 +144,69 @@
     <script>
       document.getElementById("year").textContent = String(new Date().getFullYear());
     </script>
+
+    <a
+  href="#"
+  class="inline copy-email"
+  data-email="contact@hollownexusgames.com"
+>
+  contact@hollownexusgames.com
+</a>
+
+<div id="hn-toast" class="hn-toast" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+  function hnShowToast(message) {
+    const toast = document.getElementById("hn-toast");
+    if (!toast) {
+      return;
+    }
+
+    toast.textContent = message;
+    toast.classList.add("hn-show");
+
+    window.clearTimeout(hnShowToast._t);
+    hnShowToast._t = window.setTimeout(() => {
+      toast.classList.remove("hn-show");
+      toast.textContent = "";
+    }, 1600);
+  }
+
+  async function hnCopy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  document.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const link = target.closest(".copy-email");
+    if (!link) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const email = link.getAttribute("data-email");
+    if (!email) {
+      return;
+    }
+
+    const ok = await hnCopy(email);
+    if (ok) {
+      hnShowToast("Email has been copied to clipboard.");
+    } else {
+      hnShowToast("Couldn’t copy. Please copy manually.");
+    }
+  });
+</script>
+
   </body>
 </html>
