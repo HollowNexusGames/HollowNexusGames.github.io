@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedback — Hollow Nexus</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <div class="container subpage">
+      <header class="sub-header">
+        <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
+          <img class="sub-logo" src="../assets/Circle Logo 2.png" alt="Hollow Nexus" />
+        </a>
+
+        <nav class="sub-nav" aria-label="Site">
+          <a href="../">Home</a>
+          <a href="../games/">Games</a>
+          <a href="../press/">Press</a>
+          <a href="../about/">About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>Feedback</h2>
+          <p class="muted">Thank you! This goes directly to the dev.</p>
+
+          <div class="divider"></div>
+
+          <form id="feedback-form">
+            <!-- Honeypot (spam trap) -->
+            <input type="text" name="honey" id="honey" style="display:none" autocomplete="off" />
+
+            <p><strong>Game</strong></p>
+            <p>
+              <select id="game" required>
+                <option value="">Select…</option>
+                <option value="Haute Garbage">Haute Garbage</option>
+              </select>
+            </p>
+
+            <p><strong>Type</strong></p>
+            <p>
+              <select id="category" required>
+                <option value="">Select…</option>
+                <option value="Bug Report">Bug Report</option>
+                <option value="Graphical & User Interface">Graphical & User Interface</option>
+                <option value="Feature Request">Feature Request</option>
+                <option value="User Experience">User Experience</option>
+              </select>
+            </p>
+
+            <p><strong>Subtype</strong></p>
+            <p>
+              <select id="subcategory" required>
+                <option value="">Select a Type first…</option>
+              </select>
+            </p>
+
+            <p><strong>Details</strong></p>
+            <p>
+              <textarea id="details" rows="6" required placeholder="What happened? What did you expect? Steps to reproduce?"></textarea>
+            </p>
+
+            <div class="divider"></div>
+
+            <p><strong>Did you enjoy your time playing?</strong></p>
+            <p>
+              <select id="enjoyed" required>
+                <option value="">Select…</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Unsure">Unsure</option>
+              </select>
+            </p>
+
+            <p><strong>Would you play it again?</strong></p>
+            <p>
+              <select id="playAgain" required>
+                <option value="">Select…</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Unsure">Unsure</option>
+              </select>
+            </p>
+
+            <p><strong>Would you recommend it to a friend?</strong></p>
+            <p>
+              <select id="recommend" required>
+                <option value="">Select…</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Unsure">Unsure</option>
+              </select>
+            </p>
+
+            <p><strong>Anything else?</strong></p>
+            <p>
+              <textarea id="extra" rows="4" placeholder="Optional"></textarea>
+            </p>
+
+            <div class="divider"></div>
+
+            <p><strong>Screenshot (optional)</strong></p>
+            <p class="muted">PNG/JPG recommended. Keep it under ~8MB.</p>
+            <p>
+              <input id="screenshot" type="file" accept="image/png,image/jpeg" />
+            </p>
+
+            <div class="divider"></div>
+
+            <p>
+              <button type="submit" class="sub-nav a" style="all:unset;"></button>
+            </p>
+
+            <p>
+              <button type="submit" style="font:inherit; color:var(--umber); background:rgba(248,247,255,0.52); border:1px solid rgba(86,49,20,0.22); padding:10px 14px; border-radius:999px; cursor:pointer;">
+                Submit Feedback
+              </button>
+            </p>
+          </form>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> Hollow Nexus. All rights reserved.
+      </footer>
+    </div>
+
+    <div id="hn-toast" class="hn-toast" aria-live="polite" aria-atomic="true"></div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
+
+    <script>
+      // 1) PUT YOUR APPS SCRIPT WEB APP URL HERE:
+      const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzACEqiw5gQaTZWEW6Xg8E_OmZC_lFH5zjVwMRKiG-9Hhk90palta1hHJHxva9XUlI/exec";
+
+      const SUBTYPES = {
+        "Bug Report": ["Crashes", "Freeze or Lag", "Visual or Graphical Glitch", "Audio", "Other"],
+        "Graphical & User Interface": ["HUD", "Menus", "Buttons", "Sizing", "Other"],
+        "Feature Request": ["Elaborate"],
+        "User Experience": ["Navigation & Controls", "Game Feel & Accessibility", "Auditory Feedback", "Other"],
+      };
+
+      function hnShowToast(message) {
+        const toast = document.getElementById("hn-toast");
+        if (!toast) {
+          return;
+        }
+        toast.textContent = message;
+        toast.classList.add("hn-show");
+        window.clearTimeout(hnShowToast._t);
+        hnShowToast._t = window.setTimeout(() => {
+          toast.classList.remove("hn-show");
+          toast.textContent = "";
+        }, 1600);
+      }
+
+      function setSubtypes(category) {
+        const sub = document.getElementById("subcategory");
+        sub.innerHTML = "";
+
+        const list = SUBTYPES[category] || [];
+        if (list.length === 0) {
+          const opt = document.createElement("option");
+          opt.value = "";
+          opt.textContent = "Select a Type first…";
+          sub.appendChild(opt);
+          return;
+        }
+
+        const first = document.createElement("option");
+        first.value = "";
+        first.textContent = "Select…";
+        sub.appendChild(first);
+
+        for (const item of list) {
+          const opt = document.createElement("option");
+          opt.value = item;
+          opt.textContent = item;
+          sub.appendChild(opt);
+        }
+      }
+
+      async function fileToDataUrl(file) {
+        return await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = () => reject(new Error("File read failed"));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      document.getElementById("category").addEventListener("change", (e) => {
+        setSubtypes(e.target.value);
+      });
+
+      document.getElementById("feedback-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (!ENDPOINT_URL || ENDPOINT_URL.includes("PASTE_YOUR_WEB_APP_URL_HERE")) {
+          hnShowToast("Endpoint URL not set yet.");
+          return;
+        }
+
+        const fileInput = document.getElementById("screenshot");
+        const file = fileInput.files && fileInput.files.length > 0 ? fileInput.files[0] : null;
+
+        let screenshot = null;
+        if (file) {
+          // Optional size guard (Apps Script can be finicky with huge payloads)
+          const maxBytes = 8 * 1024 * 1024;
+          if (file.size > maxBytes) {
+            hnShowToast("Screenshot too large. Please keep under ~8MB.");
+            return;
+          }
+
+          const dataUrl = await fileToDataUrl(file);
+          screenshot = {
+            filename: file.name,
+            mime: file.type,
+            data: dataUrl,
+          };
+        }
+
+        const payload = {
+          honey: document.getElementById("honey").value,
+          game: document.getElementById("game").value,
+          category: document.getElementById("category").value,
+          subcategory: document.getElementById("subcategory").value,
+          details: document.getElementById("details").value,
+          enjoyed: document.getElementById("enjoyed").value,
+          playAgain: document.getElementById("playAgain").value,
+          recommend: document.getElementById("recommend").value,
+          extra: document.getElementById("extra").value,
+          screenshot: screenshot,
+          userAgent: navigator.userAgent,
+        };
+
+        try {
+          // Note: Apps Script doesn’t reliably send CORS headers.
+          // This still submits successfully; we show a success toast optimistically.
+          await fetch(ENDPOINT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            mode: "no-cors",
+          });
+
+          document.getElementById("feedback-form").reset();
+          setSubtypes("");
+          hnShowToast("Feedback sent. Thank you!");
+        } catch (err) {
+          hnShowToast("Failed to submit. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>
