@@ -328,3 +328,29 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Subpage layout: single centered column --- */
+.subpage main {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.subpage main > .card {
+  width: 100%;
+  max-width: 760px; /* adjust if you want wider/narrower */
+}
+
+/* --- Form controls: fill the card width --- */
+.subpage input[type="text"],
+.subpage input[type="email"],
+.subpage select,
+.subpage textarea {
+  width: 100%;
+  max-width: 520px; /* keeps inputs from being comically wide on desktop */
+  display: block;
+}
+
+/* Optional: make textareas take a bit more width than inputs */
+.subpage textarea {
+  max-width: 100%;
+}
