@@ -238,6 +238,7 @@
       const SUBTYPES = {
         "Bug Report": ["Crashes", "Freeze or Lag", "Visual or Graphical Glitch", "Audio", "Other"],
         "Graphical & User Interface": ["HUD", "Menus", "Buttons", "Sizing", "Other"],
+        "Feature Request" : ["N/A"],
         "User Experience": ["Navigation & Controls", "Game Feel & Accessibility", "Auditory Feedback", "Other"],
       };
 
@@ -246,13 +247,32 @@
         sub.innerHTML = "";
 
         const list = SUBTYPES[category] || [];
+
+        // Default: nothing chosen yet
         if (list.length === 0) {
-          const opt = document.createElement("option");
-          opt.value = "";
-          opt.textContent = "Select a Type first…";
-          sub.appendChild(opt);
-          return;
+            sub.disabled = true;
+
+            const opt = document.createElement("option");
+            opt.value = "";
+            opt.textContent = "Select a Type first…";
+            sub.appendChild(opt);
+            return;
         }
+
+        // Feature Request: force N/A
+        if (category === "Feature Request") {
+            sub.disabled = true;
+
+            const opt = document.createElement("option");
+            opt.value = "N/A";
+            opt.textContent = "N/A";
+            opt.selected = true;
+            sub.appendChild(opt);
+            return;
+        }
+
+        // Other categories: normal selectable list
+        sub.disabled = false;
 
         const first = document.createElement("option");
         first.value = "";
@@ -260,12 +280,12 @@
         sub.appendChild(first);
 
         for (const item of list) {
-          const opt = document.createElement("option");
-          opt.value = item;
-          opt.textContent = item;
-          sub.appendChild(opt);
+            const opt = document.createElement("option");
+            opt.value = item;
+            opt.textContent = item;
+            sub.appendChild(opt);
         }
-      }
+     }
 
       function makeClientKey() {
         const keyName = "hn_feedback_client_key";
