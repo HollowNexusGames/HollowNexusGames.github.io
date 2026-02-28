@@ -28,10 +28,14 @@
 
       <main>
         <section class="card">
-          <h2>Feedback</h2>
-          <p class="muted">All feedback is greatly appreciated, as it helps the dev improve the game for everyone.</p>
+          <div id="feedback-intro">
+            <h2>Feedback</h2>
+            <p class="muted">
+                All feedback is greatly appreciated, as it helps the dev improve the game for everyone.
+            </p>
 
-          <div class="divider"></div>
+            <div class="divider"></div>
+            </div>
 
           <!-- Form view -->
           <div id="form-view">
@@ -314,8 +318,11 @@
       document.getElementById("send-another").addEventListener("click", (e) => {
         e.preventDefault();
         setLoading(false);
+
+        document.getElementById("feedback-intro").style.display = "block";
         document.getElementById("thankyou-view").style.display = "none";
         document.getElementById("form-view").style.display = "block";
+        
         document.getElementById("feedback-form").reset();
         setSubtypes("");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -382,6 +389,7 @@
           setLoading(false);
 
           document.getElementById("submission-id").textContent = submissionId;
+          document.getElementById("feedback-intro").style.display = "none"
           document.getElementById("form-view").style.display = "none";
           document.getElementById("thankyou-view").style.display = "block";
           window.scrollTo({ top: 0, behavior: "smooth" });
