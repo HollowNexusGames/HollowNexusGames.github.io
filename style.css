@@ -331,13 +331,29 @@ footer {
 
 /* --- Subpage layout: single centered column --- */
 .subpage main {
-  grid-template-columns: 1fr;
-  justify-items: center;
+  display: grid;              /* ensure grid still applies */
+  grid-template-columns: 1fr; /* single column */
+  justify-content: center;    /* centers the column itself */
 }
 
+/* Make the subpage content column a consistent readable width */
 .subpage main > .card {
+  width: min(760px, 100%);    /* true centering + responsive */
+  justify-self: center;       /* belt + suspenders */
+}
+
+/* --- Form controls: fill the card width --- */
+.subpage input[type="text"],
+.subpage input[type="email"],
+.subpage select,
+.subpage textarea {
   width: 100%;
-  max-width: 760px; /* adjust if you want wider/narrower */
+  display: block;
+}
+
+/* Keep textareas comfortably wide */
+.subpage textarea {
+  min-height: 140px;
 }
 
 /* --- Form controls: fill the card width --- */
@@ -353,4 +369,10 @@ footer {
 /* Optional: make textareas take a bit more width than inputs */
 .subpage textarea {
   max-width: 100%;
+}
+
+.subpage .sub-header {
+  width: min(760px, 100%);
+  margin-left: auto;
+  margin-right: auto;
 }
