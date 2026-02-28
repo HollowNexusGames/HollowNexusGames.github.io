@@ -11,7 +11,11 @@
     <div class="container subpage">
       <header class="sub-header">
         <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
-          <img class="sub-logo" src="../assets/Circle Logo 2.png" alt="Hollow Nexus" />
+          <img
+            class="sub-logo"
+            src="../assets/Circle Logo 2.png"
+            alt="Hollow Nexus"
+          />
         </a>
 
         <nav class="sub-nav" aria-label="Site">
@@ -25,14 +29,20 @@
       <main>
         <section class="card">
           <h2>Feedback</h2>
-          <p class="muted">Thank you! This goes directly to the dev.</p>
+          <p class="muted">All feedback is greatly appreciated, as it helps the dev improve the game for everyone.</p>
 
           <div class="divider"></div>
 
           <!-- Form view -->
           <div id="form-view">
             <form id="feedback-form">
-              <input type="text" name="honey" id="honey" style="display:none" autocomplete="off" />
+              <input
+                type="text"
+                name="honey"
+                id="honey"
+                style="display:none"
+                autocomplete="off"
+              />
 
               <p><strong>Name (optional)</strong></p>
               <p>
@@ -140,6 +150,7 @@
 
               <p>
                 <button
+                  id="submit-btn"
                   type="submit"
                   style="font:inherit; color:var(--umber); background:rgba(248,247,255,0.52); border:1px solid rgba(86,49,20,0.22); padding:10px 14px; border-radius:999px; cursor:pointer;"
                 >
@@ -160,7 +171,9 @@
 
             <div class="divider"></div>
 
-            <p class="muted">If you need to reference this report later, keep that ID.</p>
+            <p class="muted">
+              If you need to reference this report later, keep that ID.
+            </p>
 
             <p style="margin-top:16px;">
               <a class="inline" href="../games/">Back to Games</a>
@@ -175,6 +188,40 @@
         © <span id="year"></span> Hollow Nexus. All rights reserved.
       </footer>
     </div>
+
+    <!-- Loading overlay -->
+    <div
+      id="hn-loading"
+      aria-live="polite"
+      aria-atomic="true"
+      style="display:none; position:fixed; inset:0; z-index:99998; background:rgba(2,2,3,0.35); backdrop-filter: blur(2px);"
+    >
+      <div
+        style="min-height:100%; display:flex; align-items:center; justify-content:center; padding:18px;"
+      >
+        <div
+          style="display:flex; gap:12px; align-items:center; max-width:min(92vw, 520px); width:fit-content; background:rgba(248,247,255,0.92); border:1px solid rgba(2,2,3,0.14); border-radius:18px; box-shadow:0 18px 40px rgba(0,0,0,0.22); padding:14px 16px;"
+          role="status"
+        >
+          <div
+            aria-hidden="true"
+            style="width:18px; height:18px; border-radius:999px; border:3px solid rgba(86,49,20,0.25); border-top-color: rgba(86,49,20,0.95); animation: hnspin 0.9s linear infinite;"
+          ></div>
+
+          <div>
+            <div style="font-size:18px; letter-spacing:0.3px;">Sending feedback…</div>
+            <div class="muted" style="font-size:15px; margin-top:2px;">Please wait.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes hnspin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    </style>
 
     <script>
       document.getElementById("year").textContent = String(new Date().getFullYear());
@@ -218,7 +265,6 @@
       }
 
       function makeClientKey() {
-        // stable-ish per browser, used only for rate limiting bucket
         const keyName = "hn_feedback_client_key";
         let key = localStorage.getItem(keyName);
         if (!key) {
@@ -246,12 +292,28 @@
         });
       }
 
+      function setLoading(isLoading) {
+        const overlay = document.getElementById("hn-loading");
+        const btn = document.getElementById("submit-btn");
+
+        if (overlay) {
+          overlay.style.display = isLoading ? "block" : "none";
+        }
+
+        if (btn) {
+          btn.disabled = isLoading;
+          btn.style.opacity = isLoading ? "0.65" : "1";
+          btn.style.cursor = isLoading ? "not-allowed" : "pointer";
+        }
+      }
+
       document.getElementById("category").addEventListener("change", (e) => {
         setSubtypes(e.target.value);
       });
 
       document.getElementById("send-another").addEventListener("click", (e) => {
         e.preventDefault();
+        setLoading(false);
         document.getElementById("thankyou-view").style.display = "none";
         document.getElementById("form-view").style.display = "block";
         document.getElementById("feedback-form").reset();
@@ -307,8 +369,9 @@
           screenshot: screenshot,
         };
 
+        setLoading(true);
+
         try {
-          // CORS-safe submit for GitHub Pages -> Apps Script
           await fetch(ENDPOINT_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -316,12 +379,14 @@
             mode: "no-cors",
           });
 
-          // We can't read the response in no-cors mode, so show the client ID.
+          setLoading(false);
+
           document.getElementById("submission-id").textContent = submissionId;
           document.getElementById("form-view").style.display = "none";
           document.getElementById("thankyou-view").style.display = "block";
           window.scrollTo({ top: 0, behavior: "smooth" });
         } catch (err) {
+          setLoading(false);
           alert("Failed to submit. Please try again.");
         }
       });
