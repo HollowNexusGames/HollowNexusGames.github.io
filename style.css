@@ -591,6 +591,7 @@ footer {
 
 /* =========================
    Responsive Rating Buttons
+   (box + emoji scale together)
    ========================= */
 
 .rating {
@@ -599,8 +600,9 @@ footer {
   margin: 10px 0 0;
 
   display: flex;
-  justify-content: space-between; /* keeps them in one row */
-  gap: clamp(4px, 2vw, 10px);
+  flex-wrap: nowrap;               /* force one row */
+  justify-content: space-between;
+  gap: clamp(6px, 1.6vw, 12px);
 
   max-width: 520px;
 }
@@ -611,16 +613,18 @@ footer {
   pointer-events: none;
 }
 
-/* Button container */
+/* Each button gets a fluid square size */
 .rating-btn {
-  flex: 1; /* evenly distribute */
-  aspect-ratio: 1 / 1; /* keeps square */
-  
-  display: flex;
+  width: clamp(44px, 9vw, 64px);   /* <— this is the key */
+  height: clamp(44px, 9vw, 64px);  /* matches width, so always square */
+  flex: 0 0 auto;                  /* don't "step" from flex distribution */
+  min-width: 0;
+
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 14px;
+  border-radius: clamp(10px, 2vw, 14px);
   border: 1px solid rgba(86, 49, 20, 0.22);
   background: rgba(248, 247, 255, 0.55);
 
@@ -630,20 +634,19 @@ footer {
   transition: transform 0.10s ease, opacity 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
-/* The emoji image */
+/* Emoji scales relative to its box */
 .rating-btn img {
-  width: clamp(26px, 5vw, 40px);
-  height: clamp(26px, 5vw, 40px);
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
   display: block;
 }
 
-/* Hover */
 .rating-btn:hover {
   transform: translateY(-2px);
   opacity: 0.95;
 }
 
-/* Selected */
 .rating input:checked + .rating-btn {
   border-color: rgba(86, 49, 20, 0.65);
   box-shadow:
