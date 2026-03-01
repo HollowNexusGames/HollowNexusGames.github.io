@@ -11,11 +11,7 @@
     <div class="container subpage">
       <header class="sub-header">
         <a href="../" class="sub-logo-link" aria-label="Hollow Nexus Home">
-          <img
-            class="sub-logo"
-            src="../assets/Circle Logo 2.png"
-            alt="Hollow Nexus"
-          />
+          <img class="sub-logo" src="../assets/Circle Logo 2.png" alt="Hollow Nexus" />
         </a>
 
         <nav class="sub-nav" aria-label="Site">
@@ -31,22 +27,15 @@
           <div id="feedback-intro">
             <h2 class="page-title">Player Feedback Form</h2>
             <p class="muted">
-                All feedback is greatly appreciated, as it helps the dev improve the game for everyone.
+              All feedback is greatly appreciated, as it helps the dev improve the game for everyone.
             </p>
-
             <div class="divider"></div>
-            </div>
+          </div>
 
           <!-- Form view -->
           <div id="form-view">
-            <form id="feedback-form">
-              <input
-                type="text"
-                name="honey"
-                id="honey"
-                style="display:none"
-                autocomplete="off"
-              />
+            <form id="feedback-form" novalidate>
+              <input type="text" name="honey" id="honey" style="display:none" autocomplete="off" />
 
               <p><strong>Name (optional)</strong></p>
               <p>
@@ -138,7 +127,6 @@
               </p>
 
               <p><strong>How would you rate your overall experience?</strong></p>
-
               <fieldset class="rating" aria-label="Overall experience rating">
                 <legend class="sr-only">Overall experience rating</legend>
 
@@ -180,7 +168,13 @@
 
               <div class="file-row">
                 <input id="screenshot" type="file" accept="image/png,image/jpeg" />
-                <button type="button" class="file-remove" id="file-remove" aria-label="Remove screenshot">
+                <button
+                  type="button"
+                  class="file-remove"
+                  id="file-remove"
+                  aria-label="Remove screenshot"
+                  style="display:none;"
+                >
                   ×
                 </button>
               </div>
@@ -192,11 +186,7 @@
               <div class="divider"></div>
 
               <p>
-                <button
-                  id="submit-btn"
-                  type="submit"
-                  style="font:inherit; color:var(--umber); background:rgba(248,247,255,0.52); border:1px solid rgba(86,49,20,0.22); padding:10px 14px; border-radius:999px; cursor:pointer;"
-                >
+                <button id="submit-btn" type="submit">
                   Submit Feedback
                 </button>
               </p>
@@ -239,9 +229,7 @@
       aria-atomic="true"
       style="display:none; position:fixed; inset:0; z-index:99998; background:rgba(2,2,3,0.35); backdrop-filter: blur(2px);"
     >
-      <div
-        style="min-height:100%; display:flex; align-items:center; justify-content:center; padding:18px;"
-      >
+      <div style="min-height:100%; display:flex; align-items:center; justify-content:center; padding:18px;">
         <div
           style="display:flex; gap:12px; align-items:center; max-width:min(92vw, 520px); width:fit-content; background:rgba(248,247,255,0.92); border:1px solid rgba(2,2,3,0.14); border-radius:18px; box-shadow:0 18px 40px rgba(0,0,0,0.22); padding:14px 16px;"
           role="status"
@@ -277,7 +265,7 @@
       const SUBTYPES = {
         "Bug Report": ["Crashes", "Freeze or Lag", "Visual or Graphical Glitch", "Audio", "Other"],
         "Graphical & User Interface": ["HUD", "Menus", "Buttons", "Sizing", "Other"],
-        "Feature Request" : [""],
+        "Feature Request": [], // handled as N/A
         "User Experience": ["Navigation & Controls", "Game Feel & Accessibility", "Auditory Feedback", "Other"],
       };
 
@@ -285,32 +273,26 @@
         const sub = document.getElementById("subcategory");
         sub.innerHTML = "";
 
-        const list = SUBTYPES[category] || [];
-
-        // Default: nothing chosen yet
-        if (list.length === 0) {
-            sub.disabled = true;
-
-            const opt = document.createElement("option");
-            opt.value = "";
-            opt.textContent = "Select a Type first…";
-            sub.appendChild(opt);
-            return;
+        if (!category) {
+          sub.disabled = true;
+          const opt = document.createElement("option");
+          opt.value = "";
+          opt.textContent = "Select a Type first…";
+          sub.appendChild(opt);
+          return;
         }
 
-        // Feature Request: force N/A
         if (category === "Feature Request") {
-            sub.disabled = true;
-
-            const opt = document.createElement("option");
-            opt.value = "";
-            opt.textContent = "";
-            opt.selected = true;
-            sub.appendChild(opt);
-            return;
+          sub.disabled = true;
+          const opt = document.createElement("option");
+          opt.value = "N/A";
+          opt.textContent = "N/A";
+          opt.selected = true;
+          sub.appendChild(opt);
+          return;
         }
 
-        // Other categories: normal selectable list
+        const list = SUBTYPES[category] || [];
         sub.disabled = false;
 
         const first = document.createElement("option");
@@ -319,12 +301,12 @@
         sub.appendChild(first);
 
         for (const item of list) {
-            const opt = document.createElement("option");
-            opt.value = item;
-            opt.textContent = item;
-            sub.appendChild(opt);
+          const opt = document.createElement("option");
+          opt.value = item;
+          opt.textContent = item;
+          sub.appendChild(opt);
         }
-     }
+      }
 
       function makeClientKey() {
         const keyName = "hn_feedback_client_key";
@@ -354,70 +336,6 @@
         });
       }
 
-      function clearScreenshotUi() {
-  const input = document.getElementById("screenshot");
-  const removeBtn = document.getElementById("remove-screenshot");
-  const wrap = document.getElementById("screenshot-preview-wrap");
-  const img = document.getElementById("screenshot-preview");
-
-  if (input) {
-    input.value = "";
-  }
-  if (img) {
-    img.removeAttribute("src");
-  }
-  if (wrap) {
-    wrap.style.display = "none";
-  }
-  if (removeBtn) {
-    removeBtn.style.display = "none";
-  }
-}
-
-function setScreenshotUi(dataUrl) {
-  const removeBtn = document.getElementById("remove-screenshot");
-  const wrap = document.getElementById("screenshot-preview-wrap");
-  const img = document.getElementById("screenshot-preview");
-
-  if (img) {
-    img.src = dataUrl;
-  }
-  if (wrap) {
-    wrap.style.display = "block";
-  }
-  if (removeBtn) {
-    removeBtn.style.display = "inline-flex";
-  }
-}
-
-document.getElementById("screenshot").addEventListener("change", async (e) => {
-  const input = e.target;
-  const file = input.files && input.files.length > 0 ? input.files[0] : null;
-
-  if (!file) {
-    clearScreenshotUi();
-    return;
-  }
-
-  const maxBytes = 8 * 1024 * 1024;
-  if (file.size > maxBytes) {
-    alert("Screenshot too large. Please keep under ~8MB.");
-    clearScreenshotUi();
-    return;
-  }
-
-  try {
-    const dataUrl = await fileToDataUrl(file);
-    setScreenshotUi(dataUrl);
-  } catch {
-    clearScreenshotUi();
-  }
-});
-
-document.getElementById("remove-screenshot").addEventListener("click", () => {
-  clearScreenshotUi();
-});
-
       function setLoading(isLoading) {
         const overlay = document.getElementById("hn-loading");
         const btn = document.getElementById("submit-btn");
@@ -428,25 +346,73 @@ document.getElementById("remove-screenshot").addEventListener("click", () => {
 
         if (btn) {
           btn.disabled = isLoading;
-          btn.style.opacity = isLoading ? "0.65" : "1";
-          btn.style.cursor = isLoading ? "not-allowed" : "pointer";
         }
+      }
+
+      // Screenshot UI
+      function clearScreenshotUi() {
+        const input = document.getElementById("screenshot");
+        const removeBtn = document.getElementById("file-remove");
+        const wrap = document.getElementById("screenshot-preview-wrap");
+        const img = document.getElementById("screenshot-preview");
+
+        if (input) input.value = "";
+        if (img) img.removeAttribute("src");
+        if (wrap) wrap.style.display = "none";
+        if (removeBtn) removeBtn.style.display = "none";
+      }
+
+      function setScreenshotUi(dataUrl) {
+        const removeBtn = document.getElementById("file-remove");
+        const wrap = document.getElementById("screenshot-preview-wrap");
+        const img = document.getElementById("screenshot-preview");
+
+        if (img) img.src = dataUrl;
+        if (wrap) wrap.style.display = "block";
+        if (removeBtn) removeBtn.style.display = "inline-flex";
       }
 
       document.getElementById("category").addEventListener("change", (e) => {
         setSubtypes(e.target.value);
       });
 
+      document.getElementById("screenshot").addEventListener("change", async (e) => {
+        const input = e.target;
+        const file = input.files && input.files.length > 0 ? input.files[0] : null;
+
+        if (!file) {
+          clearScreenshotUi();
+          return;
+        }
+
+        const maxBytes = 8 * 1024 * 1024;
+        if (file.size > maxBytes) {
+          alert("Screenshot too large. Please keep under ~8MB.");
+          clearScreenshotUi();
+          return;
+        }
+
+        try {
+          const dataUrl = await fileToDataUrl(file);
+          setScreenshotUi(dataUrl);
+        } catch {
+          clearScreenshotUi();
+        }
+      });
+
+      document.getElementById("file-remove").addEventListener("click", () => {
+        clearScreenshotUi();
+      });
+
       document.getElementById("send-another").addEventListener("click", (e) => {
         e.preventDefault();
         setLoading(false);
-
         clearScreenshotUi();
 
         document.getElementById("feedback-intro").style.display = "block";
         document.getElementById("thankyou-view").style.display = "none";
         document.getElementById("form-view").style.display = "block";
-        
+
         document.getElementById("feedback-form").reset();
         setSubtypes("");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -475,7 +441,6 @@ document.getElementById("remove-screenshot").addEventListener("click", () => {
         }
 
         const submissionId = makeClientSubmissionId();
-
         const ratingEl = document.querySelector('input[name="rating"]:checked');
         const ratingValue = ratingEl ? ratingEl.value : "";
 
@@ -517,7 +482,7 @@ document.getElementById("remove-screenshot").addEventListener("click", () => {
           setLoading(false);
 
           document.getElementById("submission-id").textContent = submissionId;
-          document.getElementById("feedback-intro").style.display = "none"
+          document.getElementById("feedback-intro").style.display = "none";
           document.getElementById("form-view").style.display = "none";
           document.getElementById("thankyou-view").style.display = "block";
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -526,6 +491,10 @@ document.getElementById("remove-screenshot").addEventListener("click", () => {
           alert("Failed to submit. Please try again.");
         }
       });
+
+      // Initialize state
+      setSubtypes("");
+      clearScreenshotUi();
     </script>
   </body>
 </html>
