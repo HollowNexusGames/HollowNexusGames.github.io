@@ -354,6 +354,70 @@
         });
       }
 
+      function clearScreenshotUi() {
+  const input = document.getElementById("screenshot");
+  const removeBtn = document.getElementById("remove-screenshot");
+  const wrap = document.getElementById("screenshot-preview-wrap");
+  const img = document.getElementById("screenshot-preview");
+
+  if (input) {
+    input.value = "";
+  }
+  if (img) {
+    img.removeAttribute("src");
+  }
+  if (wrap) {
+    wrap.style.display = "none";
+  }
+  if (removeBtn) {
+    removeBtn.style.display = "none";
+  }
+}
+
+function setScreenshotUi(dataUrl) {
+  const removeBtn = document.getElementById("remove-screenshot");
+  const wrap = document.getElementById("screenshot-preview-wrap");
+  const img = document.getElementById("screenshot-preview");
+
+  if (img) {
+    img.src = dataUrl;
+  }
+  if (wrap) {
+    wrap.style.display = "block";
+  }
+  if (removeBtn) {
+    removeBtn.style.display = "inline-flex";
+  }
+}
+
+document.getElementById("screenshot").addEventListener("change", async (e) => {
+  const input = e.target;
+  const file = input.files && input.files.length > 0 ? input.files[0] : null;
+
+  if (!file) {
+    clearScreenshotUi();
+    return;
+  }
+
+  const maxBytes = 8 * 1024 * 1024;
+  if (file.size > maxBytes) {
+    alert("Screenshot too large. Please keep under ~8MB.");
+    clearScreenshotUi();
+    return;
+  }
+
+  try {
+    const dataUrl = await fileToDataUrl(file);
+    setScreenshotUi(dataUrl);
+  } catch {
+    clearScreenshotUi();
+  }
+});
+
+document.getElementById("remove-screenshot").addEventListener("click", () => {
+  clearScreenshotUi();
+});
+
       function setLoading(isLoading) {
         const overlay = document.getElementById("hn-loading");
         const btn = document.getElementById("submit-btn");
@@ -376,6 +440,8 @@
       document.getElementById("send-another").addEventListener("click", (e) => {
         e.preventDefault();
         setLoading(false);
+
+        clearScreenshotUi();
 
         document.getElementById("feedback-intro").style.display = "block";
         document.getElementById("thankyou-view").style.display = "none";
@@ -410,6 +476,9 @@
 
         const submissionId = makeClientSubmissionId();
 
+        const ratingEl = document.querySelector('input[name="rating"]:checked');
+        const ratingValue = ratingEl ? ratingEl.value : "";
+
         const payload = {
           honey: document.getElementById("honey").value,
 
@@ -429,6 +498,7 @@
           enjoyed: document.getElementById("enjoyed").value,
           playAgain: document.getElementById("playAgain").value,
           recommend: document.getElementById("recommend").value,
+          rating: ratingValue,
           extra: document.getElementById("extra").value,
 
           screenshot: screenshot,
