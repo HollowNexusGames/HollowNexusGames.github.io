@@ -545,6 +545,102 @@ footer {
   box-shadow: none;
 }
 
+/* Centered page title */
+.page-title {
+  text-align: center;
+}
+
+/* Screenshot picker row + remove button */
+.file-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 520px;
+}
+
+.file-remove {
+  font: inherit;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(86, 49, 20, 0.28);
+  background: rgba(248, 247, 255, 0.65);
+  color: var(--umber);
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+  transition: transform 0.10s ease, opacity 0.12s ease;
+}
+
+.file-remove:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.file-preview {
+  margin-top: 10px;
+  max-width: 520px;
+}
+
+.file-preview img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(86, 49, 20, 0.22);
+  box-shadow: 0 18px 30px rgba(0,0,0,0.12);
+}
+
+/* Rating image buttons */
+.rating {
+  border: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.rating input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rating-btn {
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  border: 1px solid rgba(86, 49, 20, 0.22);
+  background: rgba(248, 247, 255, 0.55);
+  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.10s ease, opacity 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.rating-btn img {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+
+.rating-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.rating input:focus + .rating-btn {
+  box-shadow: 0 0 0 3px rgba(86, 49, 20, 0.18), 0 10px 18px rgba(0,0,0,0.08);
+}
+
+.rating input:checked + .rating-btn {
+  border-color: rgba(86, 49, 20, 0.55);
+  box-shadow: 0 0 0 3px rgba(86, 49, 20, 0.18), 0 14px 22px rgba(0,0,0,0.10);
+  transform: translateY(-1px);
+}
+
 /* Mobile keeps controls full width */
 @media (max-width: 560px) {
   .subpage input[type="text"],

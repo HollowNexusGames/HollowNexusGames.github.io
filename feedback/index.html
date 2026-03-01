@@ -29,7 +29,7 @@
       <main>
         <section class="card">
           <div id="feedback-intro">
-            <h2>Player Feedback Form</h2>
+            <h2 class="page-title">Player Feedback Form</h2>
             <p class="muted">
                 All feedback is greatly appreciated, as it helps the dev improve the game for everyone.
             </p>
@@ -137,6 +137,37 @@
                 </select>
               </p>
 
+              <p><strong>How would you rate your overall experience?</strong></p>
+
+              <fieldset class="rating" aria-label="Overall experience rating">
+                <legend class="sr-only">Overall experience rating</legend>
+
+                <input type="radio" name="rating" id="rate-green" value="Green" required />
+                <label for="rate-green" class="rating-btn" title="Great">
+                  <img src="assets/emoticon-green.png" alt="Great" />
+                </label>
+
+                <input type="radio" name="rating" id="rate-blue" value="Blue" />
+                <label for="rate-blue" class="rating-btn" title="Good">
+                  <img src="assets/emoticon-blue.png" alt="Good" />
+                </label>
+
+                <input type="radio" name="rating" id="rate-yellow" value="Yellow" />
+                <label for="rate-yellow" class="rating-btn" title="Okay">
+                  <img src="assets/emoticon-yellow.png" alt="Okay" />
+                </label>
+
+                <input type="radio" name="rating" id="rate-orange" value="Orange" />
+                <label for="rate-orange" class="rating-btn" title="Meh">
+                  <img src="assets/emoticon-orange.png" alt="Meh" />
+                </label>
+
+                <input type="radio" name="rating" id="rate-red" value="Red" />
+                <label for="rate-red" class="rating-btn" title="Bad">
+                  <img src="assets/emoticon-red.png" alt="Bad" />
+                </label>
+              </fieldset>
+
               <p><strong>Anything else?</strong></p>
               <p>
                 <textarea id="extra" rows="4" placeholder="Optional"></textarea>
@@ -146,9 +177,17 @@
 
               <p><strong>Screenshot (optional)</strong></p>
               <p class="muted">PNG/JPG recommended. Keep it under ~8MB.</p>
-              <p>
+
+              <div class="file-row">
                 <input id="screenshot" type="file" accept="image/png,image/jpeg" />
-              </p>
+                <button type="button" id="remove-screenshot" class="file-remove" aria-label="Remove screenshot" style="display:none;">
+                  ×
+                </button>
+              </div>
+
+              <div id="screenshot-preview-wrap" class="file-preview" style="display:none;">
+                <img id="screenshot-preview" alt="Selected screenshot preview" />
+              </div>
 
               <div class="divider"></div>
 
