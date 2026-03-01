@@ -589,15 +589,20 @@ footer {
   box-shadow: 0 18px 30px rgba(0,0,0,0.12);
 }
 
-/* Rating image buttons */
+/* =========================
+   Responsive Rating Buttons
+   ========================= */
+
 .rating {
   border: none;
   padding: 0;
-  margin: 8px 0 0;
+  margin: 10px 0 0;
+
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
+  justify-content: space-between; /* keeps them in one row */
+  gap: clamp(4px, 2vw, 10px);
+
+  max-width: 520px;
 }
 
 .rating input {
@@ -606,24 +611,45 @@ footer {
   pointer-events: none;
 }
 
+/* Button container */
 .rating-btn {
-  display: inline-flex;
-  width: 56px;
-  height: 56px;
+  flex: 1; /* evenly distribute */
+  aspect-ratio: 1 / 1; /* keeps square */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 14px;
   border: 1px solid rgba(86, 49, 20, 0.22);
   background: rgba(248, 247, 255, 0.55);
-  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
+
   transition: transform 0.10s ease, opacity 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
+/* The emoji image */
 .rating-btn img {
-  width: 44px;
-  height: 44px;
+  width: clamp(26px, 5vw, 40px);
+  height: clamp(26px, 5vw, 40px);
   display: block;
+}
+
+/* Hover */
+.rating-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* Selected */
+.rating input:checked + .rating-btn {
+  border-color: rgba(86, 49, 20, 0.65);
+  box-shadow:
+    0 0 0 3px rgba(86, 49, 20, 0.18),
+    0 12px 20px rgba(0,0,0,0.10);
+  transform: translateY(-1px);
 }
 
 .rating-btn:hover {
