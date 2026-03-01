@@ -227,6 +227,11 @@ main {
   color: rgba(2, 2, 3, 0.70);
 }
 
+.muted-center {
+  color: rgba(2, 2, 3, 0.70);
+  text-align: center;
+}
+
 .pills {
   list-style: none;
   padding: 0;
